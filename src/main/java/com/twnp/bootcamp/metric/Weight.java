@@ -2,8 +2,8 @@ package com.twnp.bootcamp.metric;
 
 import java.math.BigDecimal;
 
-public class Distance extends Metric {
-    public Distance(BigDecimal value, UnitDistance unit) {
+public class Weight extends Metric {
+    public Weight(BigDecimal value, UnitWeight unit) {
         super(value, unit);
     }
 }
