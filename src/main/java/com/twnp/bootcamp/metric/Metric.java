@@ -23,7 +23,7 @@ public abstract class Metric {
         return Objects.hash(value, unit);
     }
 
-    protected boolean exactInstanceOf(String otherClassName) {
+    private boolean exactInstanceOf(String otherClassName) {
         return !(getClass().getName().equals(otherClassName));
     }
 
