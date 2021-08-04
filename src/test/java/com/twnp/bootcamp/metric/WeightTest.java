@@ -36,4 +36,12 @@ public class WeightTest {
         Distance decimalFiveDecameter = new Distance(new BigDecimal("0.5"), UnitDistance.DECAMETER);
         assertEquals(fiveHundredCentimeters, decimalFiveDecameter);
     }
+
+    @Test
+    void shouldBeSevenKiloGramsWhenTwoKiloGramsAddedToFiveHundredDecaGrams() {
+        Weight twoKiloGram = new Weight(new BigDecimal("2"), UnitWeight.KILOGRAM);
+        Weight fiveHundredDecaGrams = new Weight(new BigDecimal("500"), UnitWeight.DECAGRAM);
+        System.out.println(twoKiloGram.plus(fiveHundredDecaGrams).value);
+        assertEquals(0, new BigDecimal(7).compareTo(twoKiloGram.plus(fiveHundredDecaGrams).value));
+    }
 }

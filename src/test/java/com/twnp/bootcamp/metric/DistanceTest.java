@@ -1,7 +1,5 @@
 package com.twnp.bootcamp.metric;
 
-import com.twnp.bootcamp.metric.Distance;
-import com.twnp.bootcamp.metric.UnitDistance;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -29,5 +27,12 @@ public class DistanceTest {
         Distance fiveHundredCentimeters = new Distance(new BigDecimal("500"), UnitDistance.CENTIMETER);
         Distance decimalFiveDecameter = new Distance(new BigDecimal("0.5"), UnitDistance.DECAMETER);
         assertEquals(fiveHundredCentimeters, decimalFiveDecameter);
+    }
+
+    @Test
+    void shouldBeOnePointFiveKiloMeterWhenOneKiloMeterAddedToFiveHundredMeters() {
+        Distance oneKiloMeter = new Distance(BigDecimal.ONE, UnitDistance.KILOMETER);
+        Distance fiveHundredMeters = new Distance(new BigDecimal("500"), UnitDistance.METER);
+        assertEquals(0, new BigDecimal(1.5).compareTo(oneKiloMeter.plus(fiveHundredMeters).value));
     }
 }

@@ -15,9 +15,7 @@ public abstract class Metric {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Metric)) return false;
-        Metric metric = (Metric) o;
-        return equivalent(metric);
+        return equivalent((Metric) o);
     }
 
     @Override
@@ -25,15 +23,28 @@ public abstract class Metric {
         return Objects.hash(value, unit);
     }
 
-    private boolean equivalent(Metric other) {
-        if (unit.equals(other.unit)) {
-            return value.compareTo(other.value) == 0;
-        } else {
-            return toBase(this).compareTo(toBase(other)) == 0;
-        }
+    protected boolean exactInstanceOf(String otherClassName) {
+        return !(getClass().getName().equals(otherClassName));
     }
 
-    private BigDecimal toBase(Metric source) {
-        return source.unit.toBase(source.value);
+    private boolean equivalent(Metric other) {
+        boolean equivalent;
+        if (exactInstanceOf(other.getClass().getName())) {
+            equivalent = false;
+        } else if (unit.equals(other.unit)) {
+            equivalent = value.compareTo(other.value) == 0;
+        } else {
+            equivalent = toBase(this).compareTo(toBase(other)) == 0;
+        }
+        return equivalent;
     }
+
+    protected BigDecimal toUnit(Metric from) {
+        return from.unit.toUnit(from.value, unit);
+    }
+
+    private BigDecimal toBase(Metric from) {
+        return from.unit.toBase(from.value);
+    }
+
 }
